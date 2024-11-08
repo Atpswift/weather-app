@@ -7,7 +7,7 @@ import json
 import os
 
 # Load the model
-model_path = os.path.join(settings.BASE_URL, 'gradient_boosting_model.pkl') 
+model_path = os.path.join(settings.BASE_DIR, 'gradient_boosting_model.pkl') 
 model = joblib.load(model_path)
 
 @csrf_exempt  # Disable CSRF just for testing; not recommended for production
