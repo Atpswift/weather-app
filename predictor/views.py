@@ -2,10 +2,13 @@ import joblib
 import pandas as pd
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 import json
+import os
 
 # Load the model
-model = joblib.load('gradient_boosting_model.pkl')
+model_path = os.path.join(settings.BASE_URL, 'gradient_boosting_model.pkl') 
+model = joblib.load(model_path)
 
 @csrf_exempt  # Disable CSRF just for testing; not recommended for production
 def predict_temperature(request):
@@ -16,7 +19,7 @@ def predict_temperature(request):
         df = pd.DataFrame([data])
 
         # Ensure all features match the training set
-        expected_features = ['year', 'month', 'day', 'precipitation', 'tmin', 'tmax', 'snow_depth', 'country_encoded']
+        expected_features = ['precipitation', 'snow_depth', 'tmax', 'tmin', 'year', 'month', 'day', 'country_encoded']
         for col in expected_features:
             if col not in df.columns:
                 df[col] = 0  # Fill missing columns with default values
