@@ -31,7 +31,7 @@ def predictor(request):
             y_pred = model.predict(input_data)
             print(y_pred)
             days = range(1, 32)
-            return render(request, 'main.html', {'prediction': y_pred[0], 'days':days})
+            return render(request, 'main.html', {'prediction': y_pred[0]})
 
              
         except Exception as e:
