@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header text-center bg-primary text-white">
+                <h1>Weather Predictor</h1>
+            </div>
+            <div class="card-body">
+                {% if prediction %}
+                <div class="alert alert-success text-center" role="alert">
+                    <h4 class="alert-heading">Average Temperature Prediction:</h4>
+                    <p class="display-4">{{ prediction }}</p>
+                </div>
+                {% endif %}
+                <form action="" method="POST" class="mt-4">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="precipitation" class="form-label">Precipitation</label>
+                        <input type="text" class="form-control" name="precipitation" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="snow_depth" class="form-label">Snow Depth</label>
+                        <input type="text" class="form-control" name="snow_depth" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tmax" class="form-label">Max Temperature (tmax)</label>
+                        <input type="text" class="form-control" name="tmax" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tmin" class="form-label">Min Temperature (tmin)</label>
+                        <input type="text" class="form-control" name="tmin" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="year" class="form-label">Year</label>
+                        <input type="text" class="form-control" name="year" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="month" class="form-label">Month</label>
+                        <select class="form-select" name="month" required>
+                            <option value="" disabled selected>Select Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="day" class="form-label">Day</label>
+                        <select class="form-select" name="day" required>
+                            <option value="" disabled selected>Select Day</option>
+                            {% for i in days %}
+                            <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
+
+
+                    <div class="mb-3">
+                        <label for="country_encoded" class="form-label">Country</label>
+                        <div class="dropdown">
+                            <select class="form-select" name="country_encoded" required>
+                                <option value="" disabled selected>Select Country</option>
+                                <option value="0">Finland</option>
+                                <option value="1">Norway</option>
+                                <option value="2">Sweden</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Predict</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript (optional for added interactivity) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
